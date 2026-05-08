@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Your Offers</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: linear-gradient(to right, #00c6ff, #0072ff);
+    color: white;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    margin-top: 30px;
+}
+
+.card {
+    background: white;
+    color: black;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2 style="text-align:center;">💰 Your Offers</h2>
+
+<div class="container">
+
+{% if offers|length == 0 %}
+    <h3>No offers yet 😔</h3>
+{% endif %}
+
+{% for o in offers %}
+<div class="card">
+
+    <h3>Product: {{ o[5] }}</h3>
+    <p><strong>Your Offer:</strong> ₹{{ o[3] }}</p>
+    <p><strong>Status:</strong> {{ o[4] }}</p>
+
+</div>
+{% endfor %}
+
+</div>
+
+</body>
+</html>

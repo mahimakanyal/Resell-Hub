@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Offers Received</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            margin: 0;
+            background: linear-gradient(to right, #f7971e, #ffd200);
+        }
+
+        .navbar {
+            background: black;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            margin-top: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .btn {
+            padding: 8px 14px;
+            background: green;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-right: 8px;
+        }
+
+        .reject {
+            background: red;
+        }
+
+        .badge {
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: white;
+        }
+
+        .pending {
+            background: orange;
+        }
+
+        .accepted {
+            background: green;
+        }
+
+        .rejected {
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div>
+        <a href="/">🏠 Home</a>
+    </div>
+    <div>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<h2>💰 Offers Received</h2>
+
+<div class="container">
+
+    {% if offers|length == 0 %}
+        <h3 style="text-align:center;">No offers yet 😔</h3>
+    {% endif %}
+
+    {% for offer in offers %}
+    <div class="card">
+
+        <h3>Product: {{ offer[5] }}</h3>
+
+        <p><strong>Buyer:</strong> {{ offer[2] }}</p>
+        <p><strong>Offer Price:</strong> ₹{{ offer[3] }}</p>
+
+        <p>
+            <strong>Status:</strong> 
+            <span class="badge 
+                {% if offer[4]=='pending' %}pending
+                {% elif offer[4]=='accepted' %}accepted
+                {% else %}rejected{% endif %}">
+                {{ offer[4] }}
+            </span>
+        </p>
+
+        {% if offer[4] == 'pending' %}
+            <a href="/accept_offer/{{ offer[0] }}" class="btn">Accept</a>
+            <a href="/reject_offer/{{ offer[0] }}" class="btn reject">Reject</a>
+        {% endif %}
+
+    </div>
+    {% endfor %}
+
+</div>
+
+</body>
+</html>

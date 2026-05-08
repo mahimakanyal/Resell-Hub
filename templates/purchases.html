@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My Purchases</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body {
+    background: linear-gradient(to right, #43cea2, #185a9d);
+}
+
+.card {
+    border-radius: 15px;
+}
+
+.receipt {
+    border: 2px dashed black;
+    padding: 15px;
+    margin-top: 10px;
+    border-radius: 10px;
+    background: #fff;
+}
+</style>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark bg-dark">
+<div class="container">
+<a class="navbar-brand" href="/">🏠 Home</a>
+<a href="/logout" class="btn btn-danger">Logout</a>
+</div>
+</nav>
+
+<div class="container mt-5">
+
+<h2 class="text-center text-white mb-4">🧾 My Purchases</h2>
+
+<div class="row">
+
+{% for p in items %}
+<div class="col-md-4 mb-4">
+
+<div class="card shadow">
+
+<img src="{{ url_for('static', filename='uploads/' + p[4]) }}" class="card-img-top">
+
+<div class="card-body">
+
+<h5>{{ p[1] }}</h5>
+
+<p><del>Original Price: ₹{{ p[2] }}</del></p>
+
+<p class="text-success fw-bold">
+Final Price: ₹{{ p[10] if p[10] else p[2] }}
+</p>
+
+<a href="/product/{{ p[0] }}" class="btn btn-success w-100 mt-2">
+⭐ Rate Product
+</a>
+
+<!-- RECEIPT BOX -->
+<div class="receipt">
+
+<h5>🧾 Receipt</h5>
+
+<p><strong>Buyer:</strong> {{ session['user'] }}</p>
+
+<p><strong>Seller:</strong> {{ p[10] }}</p>
+
+<p><strong>Product:</strong> {{ p[1] }}</p>
+
+<p><strong>Final Price:</strong> ₹{{ p[10] }}</p>
+
+<p><strong>Status:</strong> Purchased ✅</p>
+
+
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+{% endfor %}
+
+</div>
+
+</div>
+
+</body>
+</html>

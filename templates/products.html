@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Products</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body {
+    background: linear-gradient(to right, #667eea, #764ba2);
+}
+
+.card {
+    border-radius: 15px;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.btn {
+    border-radius: 10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-dark bg-dark px-4">
+    <span class="navbar-brand">Resell Hub</span>
+
+    <div>
+        <a href="/" class="btn btn-outline-light me-2">🏠 Home</a>
+        <a href="/logout" class="btn btn-danger">Logout</a>
+    </div>
+</nav>
+
+<div class="container mt-4">
+
+<h2 class="text-white text-center mb-4">🛒 Products</h2>
+
+<form method="GET" action="/products" class="mb-4 text-center">
+
+<input type="text" name="search" 
+       value="{{ request.args.get('search','') }}"
+       placeholder="🔍 Search products..."
+       class="form-control w-50 d-inline me-2">
+
+
+
+<select name="sort" class="form-control w-25 d-inline me-2">
+
+    <option value="">Sort By</option>
+
+    <option value="low" {% if request.args.get('sort')=='low' %}selected{% endif %}>
+        Price Low → High
+    </option>
+
+    <option value="high" {% if request.args.get('sort')=='high' %}selected{% endif %}>
+        Price High → Low
+    </option>
+
+</select>
+
+<button class="btn btn-dark">Search</button>
+
+<input type="text" name="location"
+       value="{{ request.args.get('location','') }}"
+       placeholder="📍 Enter location"
+       class="form-control w-50 d-inline">
+
+<button class="btn btn-primary">Filter</button>
+<br><br>
+
+</form>
+
+<!-- CATEGORY FILTER -->
+<div class="text-center mb-4">
+
+<a href="/products?search={{ request.args.get('search','') }}" class="btn btn-light m-1">All</a>
+<a href="/products?category=electronics&search={{ request.args.get('search','') }}" class="btn btn-warning m-1">Electronics</a>
+
+<a href="/products?category=Mobile&search={{ request.args.get('search','') }}" class="btn btn-info m-1">Mobile</a>
+
+<a href="/products?category=Vehicle&search={{ request.args.get('search','') }}" class="btn btn-info m-1">Vehicle</a>
+
+<a href="/products?category=books&search={{ request.args.get('search','') }}" class="btn btn-success m-1">Books</a>
+
+<a href="/products?category=furniture&search={{ request.args.get('search','') }}" class="btn btn-secondary m-1">Furniture</a>
+
+</div>
+
+<!-- PRODUCTS GRID -->
+<div class="row">
+
+{% if products|length == 0 %}
+    <h4 class="text-center text-white">No products found 😔</h4>
+{% endif %}
+
+{% for p in products %}
+<div class="col-md-4 mb-4">
+
+<div class="card shadow-lg border-0">
+
+<img src="{{ url_for('static', filename='uploads/' + p[4]) }}"
+     class="card-img-top" style="height:200px; object-fit:cover;">
+
+<div class="card-body text-center">
+
+<h5 class="fw-bold">{{ p[1] }}</h5>
+
+<p class="text-success fw-bold fs-5">₹{{ p[2] }}</p>
+
+<p class="text-muted">{{ p[3][:50] }}...</p>
+
+<p>
+<strong>Status:</strong> 
+{% if p[8] == 'sold' %}
+    <span class="text-danger">Sold</span>
+{% else %}
+    <span class="text-success">Available</span>
+{% endif %}
+</p>
+
+<a href="/product/{{ p[0] }}" class="btn btn-dark w-100">
+View Details
+</a>
+
+</div>
+
+</div>
+
+</div>
+{% endfor %}
+
+</div>
+
+</div>
+
+</body>
+</html>

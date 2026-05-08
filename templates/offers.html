@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Offers</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark bg-dark">
+<div class="container">
+
+<a class="navbar-brand" href="/">🏠 Home</a>
+
+<a href="/logout" class="btn btn-danger">Logout</a>
+
+</div>
+</nav>
+
+<div class="container mt-5">
+
+<h2 class="text-center mb-4">Offers</h2>
+
+<table class="table table-bordered text-center">
+
+<tr>
+<th>Product</th>
+<th>Buyer</th>
+<th>Offer Price</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+
+{% for o in offers %}
+<tr>
+
+<td>{{ o[1] }}</td>
+<td>{{ o[2] }}</td>
+<td>₹{{ o[3] }}</td>
+<td>{{ o[4] }}</td>
+
+<td>
+
+<!--  ONLY SELLER CAN SEE BUTTONS -->
+{% if session['role'] == 'seller' and o[4] == 'pending' %}
+
+<a href="/accept/{{ o[0] }}" class="btn btn-success btn-sm">Accept</a>
+<a href="/reject/{{ o[0] }}" class="btn btn-danger btn-sm">Reject</a>
+
+{% else %}
+
+<span class="text-muted">No Action</span>
+
+{% endif %}
+
+</td>
+
+</tr>
+{% endfor %}
+
+</table>
+
+</div>
+
+</body>
+</html>

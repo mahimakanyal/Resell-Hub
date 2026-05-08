@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Register</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+/* 🔥 Background Image */
+body {
+background: url("https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da") no-repeat center center/cover;
+    height: 100vh;
+}
+
+/* 🔥 Dark overlay */
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+}
+
+/* 🔥 Center box */
+.register-box {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 🔥 Glass card */
+.card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    color: white;
+}
+
+/* inputs */
+.form-control {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+}
+
+.form-control::placeholder {
+    color: #ddd;
+}
+
+select {
+    background: rgba(255,255,255,0.2);
+    color: white;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="overlay"></div>
+
+<div class="register-box">
+
+    <div class="col-md-4">
+        <div class="card p-4 shadow">
+
+            <h3 class="text-center mb-3">Register</h3>
+
+            <form method="POST">
+
+                <input type="text" name="username" placeholder="Username" class="form-control mb-3" required>
+
+                <input type="password" name="password" placeholder="Password" class="form-control mb-3" required>
+
+                <select name="role" class="form-control mb-3" required>
+                    <option value="">Register as</option>
+                    <option value="buyer">Buyer</option>
+                    <option value="seller">Seller</option>
+                </select>
+
+                <button type="submit" class="btn btn-success w-100">Register</button>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

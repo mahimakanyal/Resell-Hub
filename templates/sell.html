@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sell Product</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(to right, #ff9966, #ff5e62);
+        }
+
+        .card {
+            border-radius: 15px;
+        }
+
+        .suggested {
+            background: #eaffea;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark bg-dark">
+<div class="container">
+<a class="navbar-brand" href="/">🏠 Home</a>
+<a href="/logout" class="btn btn-danger">Logout</a>
+</div>
+</nav>
+
+<div class="container mt-5">
+
+<div class="card p-4 shadow">
+
+<h3 class="text-center mb-4">📦 Sell Your Product</h3>
+
+<!-- STEP 1: GET SUGGESTED PRICE -->
+<form method="POST" action="/sell">
+
+<div class="mb-3">
+<label>Original Price</label>
+<input type="number" name="original_price" class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label>Product Age (years)</label>
+<input type="number" name="age" class="form-control" required>
+</div>
+
+<button class="btn btn-warning w-100">💡 Get Suggested Price</button>
+
+</form>
+
+<!-- SHOW PREDICTION -->
+{% if predicted %}
+<div class="suggested text-center">
+    Suggested Price: ₹{{ predicted }}
+</div>
+{% endif %}
+
+<hr>
+
+<!-- STEP 2: SUBMIT PRODUCT -->
+<form method="POST" action="/submit" enctype="multipart/form-data">
+
+<div class="mb-3">
+<label>Product Name</label>
+<input type="text" name="name" class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label>Set Selling Price</label>
+<input type="number" name="price" class="form-control" value="{{ predicted if predicted else '' }}" required>
+</div>
+
+<div class="mb-3">
+<label>Description</label>
+<textarea name="description" class="form-control" required></textarea>
+</div>
+
+<div class="mb-3">
+<label>Category</label>
+<select name="category" class="form-control" required>
+    <option value="">Select Category</option>
+    <option value="electronics">Electronics</option>
+    <option value="Mobile">Mobile</option>
+    <option value="books">Books</option>
+    <option value="furniture">Furniture</option>
+    <option value="Vehicle">Vehicles</option>
+</select>
+</div>
+
+<div class="mb-3">
+<label>Contact</label>
+<input type="text" name="contact" class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label>Location</label>
+<input type="text" name="location" class="form-control" placeholder="Enter your city" required>
+</div>
+
+<div class="mb-3">
+<label>Upload Image</label>
+<input type="file" name="image" class="form-control" required>
+</div>
+
+<button class="btn btn-success w-100">Submit Product</button>
+
+</form>
+
+</div>
+
+</div>
+
+</body>
+</html>
