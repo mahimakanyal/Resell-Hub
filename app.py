@@ -7,8 +7,8 @@ from werkzeug.utils import secure_filename
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 
-app = Flask(__name__)c
-
+app = Flask(__name__)
+app.secret_key = "resellhub_secret_key"
 UPLOAD_FOLDER = 'static/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
